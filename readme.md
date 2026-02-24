@@ -1,6 +1,7 @@
-# GitHub Action: HTTP request
+# HTTP Request GitHub Action
 
-> 🟡 **Project status**: maintenance mode<sup>[[?]](https://github.com/Tyrrrz/.github/blob/master/docs/project-status.md)</sup>
+[![Status](https://img.shields.io/badge/status-maintenance-ffd700.svg)](https://github.com/Tyrrrz/.github/blob/master/docs/project-status.md)
+[![Made in Ukraine](https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7)](https://tyrrrz.me/ukraine)
 
 GitHub Action that sends an HTTP request to the specified URL.
 
@@ -21,7 +22,7 @@ jobs:
           url: https://example.com
 ```
 
-> **Note**:
+> [!NOTE]
 > When referencing the action, replace `@master` above with either the latest release tag or a specific commit hash.
 > You can consult with [this article](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions) for more information.
 
@@ -48,6 +49,7 @@ jobs:
             }
           retry-count: 3
           retry-delay: 500
+          fail-on-error: true
 
       - name: Print outputs
         run: |
@@ -63,7 +65,7 @@ jobs:
 - `method`: HTTP method to use. Defaults to `GET`.
 - `headers`: Headers to send with the request (one per line). Defaults to empty.
 - `body`: Body to send with the request. Defaults to empty.
-- `retry-count`: Number of times to retry on unsuccessful requests. Defaults to `0`.
+- `retry-count`: Number of times to retry on unsuccessful response status codes. Defaults to `0`.
 - `retry-delay`: Delay between retries in milliseconds. Defaults to `1000`.
 - `fail-on-error`: Whether to fail the step if the request was unsuccessful. Defaults to `true`.
 
