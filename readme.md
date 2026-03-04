@@ -17,13 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send HTTP request
-        uses: tyrrrz/action-http-request@master
+        uses: tyrrrz/action-http-request@v1
         with:
           url: https://example.com
 ```
 
 > [!NOTE]
-> When referencing the action, replace `@master` above with either the latest release tag or a specific commit hash.
+> When referencing the action, it's recommended to replace the `@v1` ref above with a specific commit hash.
 > You can consult with [this article](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions) for more information.
 
 ### Advanced example
