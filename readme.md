@@ -1,6 +1,6 @@
 # HTTP Request GitHub Action
 
-[![Status](https://img.shields.io/badge/status-maintenance-ffd700.svg)](https://github.com/Tyrrrz/.github/blob/master/docs/project-status.md)
+[![Status](https://img.shields.io/badge/status-maintenance-ffd700.svg)](https://github.com/Tyrrrz/.github/blob/prime/docs/project-status.md)
 [![Made in Ukraine](https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7)](https://tyrrrz.me/ukraine)
 
 GitHub Action that sends an HTTP request to the specified URL.
@@ -37,7 +37,7 @@ jobs:
     steps:
       - name: Send HTTP request
         id: request
-        uses: tyrrrz/action-http-request@master
+        uses: tyrrrz/action-http-request@prime
         with:
           url: https://example.com
           method: POST
