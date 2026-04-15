@@ -24,7 +24,7 @@ jobs:
 
 > [!NOTE]
 > When referencing the action, it's recommended to replace the `@v1` ref above with a specific commit hash.
-> You can consult with [this article](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions) for more information.
+> You can consult with [this article](https://docs.github.com/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions) for more information.
 
 ### Advanced example
 
