@@ -1,8 +1,8 @@
 // @ts-check
-const core = require('@actions/core');
-const { HttpClient } = require('@actions/http-client');
-const { delay } = require('./utils/promise');
-const { toJson } = require('./utils/json');
+import * as core from '@actions/core';
+import { HttpClient } from '@actions/http-client';
+import { delay } from './utils/promise.js';
+import { toJson } from './utils/json.js';
 
 const main = async () => {
   const http = new HttpClient();
@@ -26,7 +26,13 @@ const main = async () => {
   let remainingRetryCount = inputs.retryCount;
   while (true) {
     // Make the request
-    const response = await http.request(inputs.method, inputs.url, inputs.body, inputs.headers);
+    const response = await http.request(
+      inputs.method,
+      inputs.url,
+      inputs.body,
+      inputs.headers
+    );
+
     const responseSuccess = response.message.statusCode && response.message.statusCode < 400;
 
     // Check for errors
@@ -66,7 +72,11 @@ const main = async () => {
     const outputs = {
       status: response.message.statusCode,
       success: responseSuccess,
-      headers: response.message.headers,
+      headers: Object.fromEntries(
+        Object.entries(response.message.headers)
+          .filter(([, value]) => value !== undefined)
+          .map(([key, value]) => [key, Array.isArray(value) ? value.join(', ') : value])
+      ),
       body: responseBody
     };
 

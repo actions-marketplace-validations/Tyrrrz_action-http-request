@@ -1,15 +1,22 @@
 {
   "name": "action-get-tag",
+  "type": "module",
   "main": "index.js",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
-    "build": "ncc build index.js -o dist"
+    "build": "ncc build index.js -o dist --minify"
   },
   "dependencies": {
-    "@actions/core": "^3.0.1",
-    "@actions/http-client": "^4.0.1"
+    "@actions/core": "1.11.1",
+    "@actions/http-client": "2.1.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.4",
-    "prettier": "^3.8.3"
+    "@vercel/ncc": "0.38.4",
+    "prettier": "3.8.3"
+  },
+  "resolutions": {
+    "@actions/http-client": "2.1.1"
   }
 }
