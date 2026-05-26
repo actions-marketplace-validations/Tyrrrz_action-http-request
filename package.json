@@ -13,8 +13,8 @@
     "@actions/http-client": "2.1.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "0.38.4",
-    "prettier": "3.8.3"
+    "@vercel/ncc": "^0.38.4",
+    "prettier": "^3.8.3"
   },
   "resolutions": {
     "@actions/http-client": "2.1.1"

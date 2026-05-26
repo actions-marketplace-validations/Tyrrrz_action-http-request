@@ -1,24 +1,24 @@
 // @ts-check
-import * as core from '@actions/core';
-import { HttpClient } from '@actions/http-client';
-import { delay } from './utils/promise.js';
-import { toJson } from './utils/json.js';
+import * as core from "@actions/core";
+import { HttpClient } from "@actions/http-client";
+import { delay } from "./utils/promise.js";
+import { toJson } from "./utils/json.js";
 
 const main = async () => {
   const http = new HttpClient();
 
   // Get the inputs
   const inputs = {
-    url: core.getInput('url'),
-    method: core.getInput('method'),
+    url: core.getInput("url"),
+    method: core.getInput("method"),
     headers: Object.fromEntries(
       // Turn the array of string headers into an array of key-value pairs
-      core.getMultilineInput('headers').map((header) => header.split(':', 2).map((s) => s.trim()))
+      core.getMultilineInput("headers").map((header) => header.split(":", 2).map((s) => s.trim())),
     ),
-    body: core.getInput('body'),
-    retryCount: Number(core.getInput('retry-count')),
-    retryDelay: Number(core.getInput('retry-delay')),
-    failOnError: core.getBooleanInput('fail-on-error')
+    body: core.getInput("body"),
+    retryCount: Number(core.getInput("retry-count")),
+    retryDelay: Number(core.getInput("retry-delay")),
+    failOnError: core.getBooleanInput("fail-on-error"),
   };
 
   core.info(`Inputs: ${toJson(inputs)}`);
@@ -26,13 +26,7 @@ const main = async () => {
   let remainingRetryCount = inputs.retryCount;
   while (true) {
     // Make the request
-    const response = await http.request(
-      inputs.method,
-      inputs.url,
-      inputs.body,
-      inputs.headers
-    );
-
+    const response = await http.request(inputs.method, inputs.url, inputs.body, inputs.headers);
     const responseSuccess = response.message.statusCode && response.message.statusCode < 400;
 
     // Check for errors
@@ -40,7 +34,7 @@ const main = async () => {
       // Retry if possible
       if (remainingRetryCount > 0) {
         core.warning(
-          `Request failed with status code ${response.message.statusCode}. Retries remaining: ${remainingRetryCount}.`
+          `Request failed with status code ${response.message.statusCode}. Retries remaining: ${remainingRetryCount}.`,
         );
 
         if (inputs.retryDelay > 0) {
@@ -55,11 +49,11 @@ const main = async () => {
       else {
         if (inputs.failOnError) {
           core.setFailed(
-            `Request failed with status code ${response.message.statusCode}. No retries remaining.`
+            `Request failed with status code ${response.message.statusCode}. No retries remaining.`,
           );
         } else {
           core.warning(
-            `Request failed with status code ${response.message.statusCode}. No retries remaining.`
+            `Request failed with status code ${response.message.statusCode}. No retries remaining.`,
           );
         }
       }
@@ -75,17 +69,17 @@ const main = async () => {
       headers: Object.fromEntries(
         Object.entries(response.message.headers)
           .filter(([, value]) => value !== undefined)
-          .map(([key, value]) => [key, Array.isArray(value) ? value.join(', ') : value])
+          .map(([key, value]) => [key, Array.isArray(value) ? value.join(", ") : value]),
       ),
-      body: responseBody
+      body: responseBody,
     };
 
     core.info(`Outputs: ${toJson(outputs)}`);
 
-    core.setOutput('status', outputs.status);
-    core.setOutput('success', outputs.success);
-    core.setOutput('headers', toJson(outputs.headers));
-    core.setOutput('body', outputs.body);
+    core.setOutput("status", outputs.status);
+    core.setOutput("success", outputs.success);
+    core.setOutput("headers", toJson(outputs.headers));
+    core.setOutput("body", outputs.body);
 
     // Break out of the retry loop
     break;
